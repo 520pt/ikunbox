@@ -1,4 +1,4 @@
-# ikun-json-config
+# lufeitv
 
 ikun 远程 JSON 配置仓库。
 
@@ -19,5 +19,6 @@ App 会读取：
 
 远程地址：
 
-- `https://gitee.com/txnas/ikun-json-config/raw/master/manifest.json`
-- `https://gitee.com/txnas/ikun-json-config/raw/master/custom_blogger_config.json`
+- `https://gitee.com/txnas/lufeitv/raw/master/manifest.json`
+- `https://gitee.com/txnas/lufeitv/raw/master/custom_blogger_config.json`
+

@@ -21,4 +21,3 @@ App 会读取：
 
 - `https://gitee.com/txnas/lufeitv/raw/master/manifest.json`
 - `https://gitee.com/txnas/lufeitv/raw/master/custom_blogger_config.json`
-

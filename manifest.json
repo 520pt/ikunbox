@@ -1,6 +1,6 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-08-07T00:00:00+08:00",
-  "message": "初始化 lufeitv 远程自定义界面配置",
+  "message": "远程配置已更新到 v2",
   "configUrl": "https://gitee.com/txnas/lufeitv/raw/master/custom_blogger_config.json"
 }

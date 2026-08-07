@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "updatedAt": "2026-08-07T00:00:00+08:00",
+  "message": "初始化远程自定义界面配置",
+  "configUrl": "https://gitee.com/txnas/ikun-json-config/raw/master/custom_blogger_config.json"
+}

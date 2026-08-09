@@ -1,8 +1,8 @@
 {
-  "version": 4,
+  "version": 5,
   "mode": "custom",
   "source": "gitee_remote",
-  "updatedAt": "2026-08-09T13:31:42+08:00",
+  "updatedAt": "2026-08-09T13:36:41+08:00",
   "activePageId": "children",
   "pages": [
     {
@@ -22,54 +22,6 @@
         {
           "name": "阿禾",
           "url": "https://www.douyin.com/user/MS4wLjABAAAAbFwYsV4aI13HsZTUv5ZbniP5jBIz9naISmOYvJ-If3U",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "小甜橙妹妹的快乐星球",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAA-QkpdUMY71G4Tt8IahbnvPhbkXRi9e-9XnmpaOXCmHo",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "南瓜小妮",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAAps0m2GPGiahgwOs2xfdCFyEOjGJCtK1GKN3bhw3hZIg",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "萌萌少儿动画",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAAFJVQfMn4MqtU4V9wASO2NRwYRjAzltlPJvTSFx9vGVc",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "儿童动画故事乐园",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAAcc9my3mAacVNRaQgcYGEGm07lYL5hzlBGjMRTUBacmM",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "能量动画片",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAA63eLZqQmCqZoYRehUNuJMRaVJl1f1F-HHJXAmhP8sE4",
-          "source": "gitee_remote",
-          "status": "待检测",
-          "status_level": "pending",
-          "valid": true
-        },
-        {
-          "name": "儿童故事大王",
-          "url": "https://www.douyin.com/user/MS4wLjABAAAAHmt9H6r69KSigai27xWPAe67Rc--OB9mTokTP0eupUs8qyx8x6NqVB4qVKNs-iUK",
           "source": "gitee_remote",
           "status": "待检测",
           "status_level": "pending",
@@ -156,7 +108,7 @@
           "note": "原始分享链接：https://v.douyin.com/OlrciiEoE2o/"
         }
       ],
-      "count": 16
+      "count": 10
     }
   ]
 }

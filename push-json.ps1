@@ -4,9 +4,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 Set-Location $PSScriptRoot
-python -m json.tool manifest.json > $null
-python -m json.tool custom_blogger_config.json > $null
-git add README.md manifest.json custom_blogger_config.json .gitattributes push-json.ps1
+Get-ChildItem -LiteralPath $PSScriptRoot -Filter *.json | ForEach-Object {
+    python -m json.tool $_.FullName > $null
+}
+git add .gitignore .gitattributes README.md push-json.ps1 start-json-panel.ps1 json_panel.py *.json
 if (-not (git diff --cached --quiet)) {
     git commit -m $Message
 }

@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "updatedAt": "2026-08-09T00:00:00+08:00",
-  "message": "远程配置已更新到 v3，新增儿童博主 8 个",
+  "version": 4,
+  "updatedAt": "2026-08-09T13:31:42+08:00",
+  "message": "远程配置已更新到 v4，修正儿童博主真实名称",
   "configUrl": "https://gitee.com/txnas/lufeitv/raw/master/custom_blogger_config.json"
 }

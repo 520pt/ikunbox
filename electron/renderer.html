@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ikun JSON 维护工具</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#eef2f8;color:#172033;font-family:"Microsoft YaHei",Arial,sans-serif}button,input,select,textarea{font-family:inherit}.wrap{max-width:1320px;margin:0 auto;padding:20px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.brand{display:flex;gap:12px;align-items:center}.logo{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#111827,#2563eb);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:900;box-shadow:0 10px 28px rgba(37,99,235,.25)}h1{font-size:24px;margin:0}.repo{font-size:12px;color:#687386;max-width:720px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar,.card{background:#fff;border:1px solid #e3e8f2;border-radius:16px;box-shadow:0 8px 28px rgba(20,30,55,.07)}.bar{padding:12px;display:flex;gap:10px;align-items:end;flex-wrap:wrap}.field{display:flex;flex-direction:column;gap:5px}.field.file{min-width:260px}label{font-size:13px;color:#647086}select,input,textarea{width:100%;border:1px solid #d7dce5;border-radius:11px;padding:10px 12px;font-size:14px;background:#fff}textarea{height:122px;resize:vertical;line-height:1.5}.btn{border:0;border-radius:11px;padding:10px 15px;background:#2563eb;color:#fff;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(37,99,235,.16)}.btn:hover{filter:brightness(.96)}.btn.gray{background:#687386}.btn.green{background:#16a34a}.btn.red{background:#dc2626}.btn.dark{background:#111827}.btn.small{font-size:12px;padding:7px 10px;border-radius:9px}.btn:disabled{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:380px 1fr;gap:14px;margin-top:14px}.card{padding:14px}.titleline{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}h3{font-size:17px;margin:0}.row{display:flex;gap:8px}.row>*{flex:1}.muted{color:#7b8496;font-size:12px}.status{white-space:pre-wrap;background:#0f172a;color:#dbeafe;border-radius:12px;padding:10px;min-height:66px;max-height:180px;overflow:auto;font-size:12px;line-height:1.45}.pages{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.pill{border:1px solid #d7dce5;border-radius:999px;padding:8px 12px;background:#fff;cursor:pointer}.pill.on{background:#111827;color:white;border-color:#111827}table{width:100%;border-collapse:collapse}th,td{border-bottom:1px solid #edf0f5;padding:10px;text-align:left;font-size:13px;vertical-align:top}th{color:#687386;background:#fafbfe;position:sticky;top:0}tbody tr:hover{background:#fafcff}.url{max-width:470px;word-break:break-all}.actions{display:flex;gap:6px;flex-wrap:wrap}.preview{display:grid;grid-template-columns:1fr;gap:8px;margin-top:10px}.danger{color:#dc2626}.ok{color:#16a34a}.split{height:12px}@media(max-width:980px){.grid{grid-template-columns:1fr}.wrap{padding:12px}.repo{max-width:420px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand"><div class="logo">IK</div><div><h1>ikun JSON 维护工具</h1><div id="repo" class="repo">正在读取仓库...</div></div></div>
+      <button class="btn gray" id="chooseRepo">选择仓库目录</button>
+    </div>
+
+    <div class="bar">
+      <div class="field file"><label>配置文件</label><select id="file"></select></div>
+      <button class="btn gray" id="reload">刷新</button>
+      <button class="btn" id="newFile">新建 JSON</button>
+      <button class="btn green" id="push">上传到 Gitee</button>
+      <span id="meta" class="muted"></span>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="titleline"><h3>添加抖音博主</h3></div>
+        <label>粘贴分享文本</label>
+        <textarea id="share" placeholder="3- 长按复制此条消息，打开抖音搜索，查看TA的更多作品。 https://v.douyin.com/mP0qc7wScAs/ 5@7.com :4pm"></textarea>
+        <div class="row" style="margin-top:8px">
+          <button class="btn" id="resolve">解析链接</button>
+          <button class="btn green" id="addItem">添加到当前页</button>
+        </div>
+        <div class="preview">
+          <div class="field"><label>名称</label><input id="name"></div>
+          <div class="field"><label>主页 URL</label><input id="url"></div>
+          <input id="sec" type="hidden">
+          <div class="field"><label>备注</label><input id="note"></div>
+        </div>
+
+        <div class="split"></div>
+        <div class="titleline"><h3>页面管理</h3><button class="btn small" id="addPage">添加页面</button></div>
+        <div id="pages" class="pages"></div>
+        <div class="row"><button class="btn gray" id="renamePage">改名</button><button class="btn red" id="deletePage">删除当前页</button></div>
+
+        <div class="split"></div>
+        <label>操作日志</label>
+        <div id="log" class="status">准备就绪</div>
+      </section>
+
+      <section class="card">
+        <div class="titleline"><h3 id="listTitle">博主列表</h3><span id="count" class="muted"></span></div>
+        <table>
+          <thead><tr><th style="width:54px">序号</th><th style="width:200px">名称</th><th>主页 / 备注</th><th style="width:90px">状态</th><th style="width:150px">操作</th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </section>
+    </div>
+  </div>
+<script>
+const state = { files: [], file: 'custom_blogger_config.json', config: null, pageId: '' };
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? '').replace(/[&<>'"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+function log(text, kind='') { $('log').innerHTML = `<span class="${kind}">${esc(text)}</span>`; }
+function currentPage() { return (state.config?.pages || []).find((p) => p.id === state.pageId) || state.config?.pages?.[0]; }
+async function guard(fn) { try { await fn(); } catch (e) { log(e.message || String(e), 'danger'); } }
+
+async function refreshRepo() {
+  const r = await window.api.getRepo();
+  $('repo').textContent = (r.ok ? '当前仓库：' : '仓库未就绪：') + r.repoRoot;
+}
+async function loadFiles() {
+  state.files = await window.api.listFiles();
+  if (!state.files.includes(state.file)) state.file = state.files[0] || '';
+  $('file').innerHTML = state.files.map((f) => `<option ${f === state.file ? 'selected' : ''}>${esc(f)}</option>`).join('');
+}
+async function loadConfig() {
+  if (!state.file) return;
+  state.config = await window.api.loadConfig(state.file);
+  state.pageId = state.pageId || state.config.activePageId || state.config.pages?.[0]?.id || '';
+  render();
+}
+async function reload() { await refreshRepo(); await loadFiles(); state.pageId = ''; await loadConfig(); log('已刷新', 'ok'); }
+function render() {
+  const c = state.config;
+  const p = currentPage();
+  $('meta').textContent = c ? `version ${c.version || ''}   ${c.updatedAt || ''}` : '';
+  $('pages').innerHTML = (c?.pages || []).map((p) => `<button class="pill ${p.id === state.pageId ? 'on' : ''}" data-page="${esc(p.id)}">${esc(p.name || p.title || p.id)} (${(p.items || []).length})</button>`).join('');
+  document.querySelectorAll('[data-page]').forEach((b) => b.onclick = () => { state.pageId = b.dataset.page; render(); });
+  $('listTitle').textContent = `${p?.name || ''} 博主列表`;
+  $('count').textContent = p ? `共 ${(p.items || []).length} 个` : '';
+  $('tbody').innerHTML = p ? (p.items || []).map((it, i) => `<tr><td>${i + 1}</td><td>${esc(it.name)}</td><td class="url">${esc(it.url)}<div class="muted">${esc(it.note || '')}</div></td><td>${esc(it.status || '')}</td><td class="actions"><button class="btn gray small" data-edit="${i}">编辑</button><button class="btn red small" data-del="${i}">删除</button></td></tr>`).join('') : '';
+  document.querySelectorAll('[data-edit]').forEach((b) => b.onclick = () => editItem(Number(b.dataset.edit)));
+  document.querySelectorAll('[data-del]').forEach((b) => b.onclick = () => deleteItem(Number(b.dataset.del)));
+}
+
+async function resolveShare() {
+  log('正在解析抖音链接...');
+  const item = await window.api.resolveDouyin($('share').value);
+  $('name').value = item.name;
+  $('url').value = item.url;
+  $('sec').value = item.sec_user_id || '';
+  $('note').value = item.note || '';
+  log(`解析成功：${item.name}`, 'ok');
+}
+async function addItem() {
+  const p = currentPage();
+  const item = { name: $('name').value.trim(), url: $('url').value.trim(), sec_user_id: $('sec').value.trim(), source: 'gitee_remote', status: '待检测', status_level: 'pending', valid: true, note: $('note').value.trim() };
+  const res = await window.api.addItem({ file: state.file, pageId: p.id, item });
+  state.config = res.config;
+  render();
+  log(res.message, 'ok');
+}
+async function editItem(i) {
+  const p = currentPage();
+  const old = p.items[i];
+  const name = prompt('名称', old.name || ''); if (name === null) return;
+  const url = prompt('主页 URL', old.url || ''); if (url === null) return;
+  const note = prompt('备注', old.note || ''); if (note === null) return;
+  state.config = await window.api.updateItem({ file: state.file, pageId: p.id, index: i, item: { ...old, name: name.trim(), url: url.trim(), note: note.trim() } });
+  render(); log('已保存', 'ok');
+}
+async function deleteItem(i) {
+  const p = currentPage();
+  const old = p.items[i];
+  if (!confirm(`删除：${old.name || old.url}？`)) return;
+  state.config = await window.api.deleteItem({ file: state.file, pageId: p.id, index: i });
+  render(); log('已删除', 'ok');
+}
+async function addPage() {
+  const name = prompt('页面名称，例如 儿童'); if (!name) return;
+  const res = await window.api.addPage({ file: state.file, name });
+  state.config = res.config; state.pageId = res.pageId;
+  render(); log('已添加页面', 'ok');
+}
+async function renamePage() {
+  const p = currentPage(); if (!p) return;
+  const name = prompt('新页面名称', p.name || p.title || p.id); if (!name) return;
+  state.config = await window.api.updatePage({ file: state.file, pageId: p.id, name });
+  render(); log('已改名', 'ok');
+}
+async function deletePage() {
+  const p = currentPage(); if (!p) return;
+  if (!confirm(`删除页面 ${p.name || p.id} 及里面所有博主？`)) return;
+  state.config = await window.api.deletePage({ file: state.file, pageId: p.id });
+  state.pageId = state.config.activePageId;
+  render(); log('已删除页面', 'ok');
+}
+async function newFile() {
+  const name = prompt('新 JSON 文件名，例如 custom_children_config.json'); if (!name) return;
+  const pageName = prompt('默认页面名称', '儿童') || '儿童';
+  state.file = await window.api.createFile({ name, pageName });
+  await reload(); log(`已创建 ${state.file}`, 'ok');
+}
+async function pushRepo() {
+  const msg = prompt('提交说明', 'update json config'); if (msg === null) return;
+  log('正在校验、提交并推送到 Gitee...');
+  const out = await window.api.push(msg);
+  log(out, 'ok');
+}
+
+$('file').onchange = () => guard(async () => { state.file = $('file').value; state.pageId = ''; await loadConfig(); });
+$('reload').onclick = () => guard(reload);
+$('chooseRepo').onclick = () => guard(async () => { await window.api.chooseRepo(); await reload(); });
+$('newFile').onclick = () => guard(newFile);
+$('push').onclick = () => guard(pushRepo);
+$('resolve').onclick = () => guard(resolveShare);
+$('addItem').onclick = () => guard(addItem);
+$('addPage').onclick = () => guard(addPage);
+$('renamePage').onclick = () => guard(renamePage);
+$('deletePage').onclick = () => guard(deletePage);
+guard(reload);
+</script>
+</body>
+</html>

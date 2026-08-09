@@ -1,0 +1,36 @@
+{
+  "name": "ikun-json-manager",
+  "version": "1.0.0",
+  "description": "ikun 远程 JSON 可视化维护工具",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:exe": "electron-builder --win portable --x64"
+  },
+  "build": {
+    "appId": "com.ikun.jsonmanager",
+    "productName": "ikun-json-manager",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "artifactName": "ikun-json-manager.exe",
+      "icon": "electron/assets/icon.ico"
+    },
+    "portable": {
+      "artifactName": "ikun-json-manager.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.3.0",
+    "electron-builder": "^26.0.12"
+  }
+}

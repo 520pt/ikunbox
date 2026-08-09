@@ -2,15 +2,21 @@
 
 ikun 远程 JSON 配置仓库。
 
-## 可视化维护面板
+## 单文件 exe 工具
 
-双击或运行：
+本地维护直接运行仓库根目录的：
 
-```powershell
-powershell -ExecutionPolicy Bypass -File .\start-json-panel.ps1
+```text
+ikun-json-manager.exe
 ```
 
-打开后可以：
+如果需要重新生成 exe，运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\build-exe.ps1
+```
+
+工具可以：
 
 - 粘贴抖音分享文本，自动解析成可用的 `douyin.com/user/<sec_user_id>` 主页地址和真实昵称。
 - 添加、编辑、删除博主。
@@ -22,6 +28,12 @@ powershell -ExecutionPolicy Bypass -File .\start-json-panel.ps1
 
 ```text
 3- 长按复制此条消息，打开抖音搜索，查看TA的更多作品。 https://v.douyin.com/mP0qc7wScAs/ 5@7.com :4pm
+```
+
+## 备用网页面板
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\start-json-panel.ps1
 ```
 
 ## 手动修改方法

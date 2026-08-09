@@ -1,8 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
   "mode": "custom",
   "source": "gitee_remote",
-  "updatedAt": "2026-08-07T00:00:00+08:00",
+  "updatedAt": "2026-08-09T00:00:00+08:00",
   "activePageId": "children",
   "pages": [
     {
@@ -74,8 +74,89 @@
           "status": "待检测",
           "status_level": "pending",
           "valid": true
+        },
+        {
+          "name": "新增儿童博主09",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc",
+          "sec_user_id": "MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/QpKiIXMRwkI/"
+        },
+        {
+          "name": "新增儿童博主10",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG",
+          "sec_user_id": "MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/D8G7BphovrU/"
+        },
+        {
+          "name": "新增儿童博主11",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO",
+          "sec_user_id": "MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/zxM-ALvQmSs/"
+        },
+        {
+          "name": "新增儿童博主12",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg",
+          "sec_user_id": "MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/ogJlUtBGpFw/"
+        },
+        {
+          "name": "新增儿童博主13",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08",
+          "sec_user_id": "MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/H055oBgFt0M/"
+        },
+        {
+          "name": "新增儿童博主14",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz",
+          "sec_user_id": "MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/yYYEdH26ogM/"
+        },
+        {
+          "name": "新增儿童博主15",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE",
+          "sec_user_id": "MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/crfD2f7VSY8/"
+        },
+        {
+          "name": "新增儿童博主16",
+          "url": "https://www.douyin.com/user/MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI",
+          "sec_user_id": "MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI",
+          "source": "gitee_remote",
+          "status": "待检测",
+          "status_level": "pending",
+          "valid": true,
+          "note": "原始分享链接：https://v.douyin.com/OlrciiEoE2o/"
         }
-      ]
+      ],
+      "count": 16
     }
   ]
 }

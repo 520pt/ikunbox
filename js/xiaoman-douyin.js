@@ -34,12 +34,13 @@ var rule = {
         var page = MY_PAGE || 1;
         try {
             print('xiaoman 一级 cate=' + cate + ' page=' + page);
-            var fn = (typeof douyinList !== 'undefined') ? douyinList : this.douyinList;
+            var root = (typeof globalThis !== 'undefined') ? globalThis : {};
+            var fn = (typeof douyinList !== 'undefined') ? douyinList : root.douyinList;
             VODS = fn(cate, page, '');
             print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));
         } catch (e) {
             print('xiaoman 一级 error=' + (e && e.message ? e.message : e));
-            VODS = [debugVod('分类加载失败', String(cate), String(e && e.message ? e.message : e))];
+            VODS = [{vod_id:'debug_info', vod_name:'分类加载失败', vod_pic:'', vod_remarks:String(cate), vod_content:String(e && e.message ? e.message : e)}];
         }
     }),
 

@@ -79,7 +79,52 @@ var FEATURED = {
     child: ['300212', '/jingxuan/child']
 };
 
-var CUSTOM_PAGES = [{"id":"children","title":"儿童","items":[{"name":"橙长故事","sec_user_id":"MS4wLjABAAAAvTx9f5c2UCXorqy0hJWSi_XJEu3FxaX1neENmX2TnFwQwVuHWsk8HuM1Jvvj5c1c","url":"https://www.douyin.com/user/MS4wLjABAAAAvTx9f5c2UCXorqy0hJWSi_XJEu3FxaX1neENmX2TnFwQwVuHWsk8HuM1Jvvj5c1c","note":""},{"name":"阿禾","sec_user_id":"MS4wLjABAAAAbFwYsV4aI13HsZTUv5ZbniP5jBIz9naISmOYvJ-If3U","url":"https://www.douyin.com/user/MS4wLjABAAAAbFwYsV4aI13HsZTUv5ZbniP5jBIz9naISmOYvJ-If3U","note":""},{"name":"果宝是个小胖子","sec_user_id":"MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc","url":"https://www.douyin.com/user/MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc","note":"原始分享链接：https://v.douyin.com/QpKiIXMRwkI/"},{"name":"萍萍的旧时光（收徒）","sec_user_id":"MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG","url":"https://www.douyin.com/user/MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG","note":"原始分享链接：https://v.douyin.com/D8G7BphovrU/"},{"name":"小宇和然然","sec_user_id":"MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO","url":"https://www.douyin.com/user/MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO","note":"原始分享链接：https://v.douyin.com/zxM-ALvQmSs/"},{"name":"@丹丹的旧时光之旅","sec_user_id":"MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg","url":"https://www.douyin.com/user/MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg","note":"原始分享链接：https://v.douyin.com/ogJlUtBGpFw/"},{"name":"小田（农村治愈系）","sec_user_id":"MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08","url":"https://www.douyin.com/user/MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08","note":"原始分享链接：https://v.douyin.com/H055oBgFt0M/"},{"name":"芳芳的旧时光","sec_user_id":"MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz","url":"https://www.douyin.com/user/MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz","note":"原始分享链接：https://v.douyin.com/yYYEdH26ogM/"},{"name":"金小满（收徒）","sec_user_id":"MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE","url":"https://www.douyin.com/user/MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE","note":"原始分享链接：https://v.douyin.com/crfD2f7VSY8/"},{"name":"瑾瑜的白日梦","sec_user_id":"MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI","url":"https://www.douyin.com/user/MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI","note":"原始分享链接：https://v.douyin.com/OlrciiEoE2o/"}]}];
+var ABOGUS_SHIM = "(function(){var g=typeof globalThis!=='undefined'?globalThis:this;g.window=g;g.self=g;g.top=g;g.parent=g;g.frames=g;g.navigator={userAgent:'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36',appVersion:'5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36',platform:'Win32',vendor:'Google Inc.',language:'zh-CN',languages:['zh-CN','zh','en'],cookieEnabled:true,onLine:true,hardwareConcurrency:8,maxTouchPoints:0,deviceMemory:8,plugins:{length:0},mimeTypes:{length:0},connection:{effectiveType:'4g',downlink:10,rtt:50},webdriver:false,vendorSubs:{ink:Date.now()}};var _cookie='';g.document={body:{clientWidth:1920,clientHeight:1040},documentElement:{clientWidth:1920,clientHeight:1040},title:'',domain:'douyin.com',referrer:'',readyState:'complete',hidden:false,visibilityState:'visible',location:{href:'https://www.douyin.com/',protocol:'https:',host:'www.douyin.com',hostname:'www.douyin.com',pathname:'/',origin:'https://www.douyin.com'},createElement:function(tag){return {tagName:String(tag).toUpperCase(),style:{},classList:{add:function(){},remove:function(){},contains:function(){return false}},setAttribute:function(){},getAttribute:function(){return null},appendChild:function(){},removeChild:function(){},addEventListener:function(){},removeEventListener:function(){},getBoundingClientRect:function(){return {top:0,left:0,bottom:0,right:0,width:0,height:0}},offsetWidth:0,offsetHeight:0}},createTextNode:function(text){return {nodeValue:text,textContent:text,data:text}},getElementById:function(){return null},getElementsByTagName:function(){return []},getElementsByClassName:function(){return []},querySelector:function(){return null},querySelectorAll:function(){return []},addEventListener:function(){},removeEventListener:function(){},createEvent:function(){return {initEvent:function(){},preventDefault:function(){},stopPropagation:function(){}}}};Object.defineProperty(g.document,'cookie',{get:function(){return _cookie},set:function(v){var p=String(v).split(';')[0];var eq=p.indexOf('=');if(eq>0){var k=p.substring(0,eq).trim();var cs=_cookie.split('; ').filter(function(c){return c&&c.indexOf(k+'=')!==0});cs.push(p.trim());_cookie=cs.join('; ')}}});g.location=g.document.location;g.screen={width:1920,height:1080,availWidth:1920,availHeight:1040,availLeft:0,availTop:0,colorDepth:24,pixelDepth:24,orientation:{angle:0,type:'landscape-primary'}};g.innerWidth=1920;g.innerHeight=1040;g.outerWidth=1920;g.outerHeight=1080;g.screenX=0;g.screenY=0;g.pageXOffset=0;g.pageYOffset=0;g.scrollX=0;g.scrollY=0;g.devicePixelRatio=1;g.XMLHttpRequest=function(){this.readyState=0;this.status=0;this.statusText='';this.responseText='';this.responseURL='';this.withCredentials=false;this.__headers={}};g.XMLHttpRequest.prototype.open=function(){};g.XMLHttpRequest.prototype.send=function(){};g.XMLHttpRequest.prototype.abort=function(){};g.XMLHttpRequest.prototype.setRequestHeader=function(n,v){this.__headers[n]=v};g.XMLHttpRequest.prototype.getResponseHeader=function(){return null};g.XMLHttpRequest.prototype.getAllResponseHeaders=function(){return ''};g.XMLHttpRequest.prototype.addEventListener=function(){};g.XMLHttpRequest.prototype.removeEventListener=function(){};g.fetch=function(){return Promise.resolve({ok:true,status:200,json:function(){return Promise.resolve({})},text:function(){return Promise.resolve('')}})};var _timerId=0;g.setTimeout=function(fn){var id=++_timerId;if(typeof fn==='function'){try{fn()}catch(e){}}return id};g.setInterval=function(){return ++_timerId};g.clearTimeout=function(){};g.clearInterval=function(){};g.requestAnimationFrame=function(){return ++_timerId};g.cancelAnimationFrame=function(){};var _storage={};g.localStorage={getItem:function(k){return _storage[k]||null},setItem:function(k,v){_storage[k]=String(v)},removeItem:function(k){delete _storage[k]},clear:function(){_storage={}},get length(){return Object.keys(_storage).length},key:function(i){return Object.keys(_storage)[i]||null}};g.sessionStorage=g.localStorage;g.crypto={getRandomValues:function(arr){for(var i=0;i<arr.length;i++)arr[i]=Math.floor(Math.random()*256);return arr},subtle:{digest:function(){return Promise.resolve(new ArrayBuffer(32))}}};var _perfStart=Date.now();g.performance={now:function(){return Date.now()-_perfStart},timing:{navigationStart:_perfStart,fetchStart:_perfStart,domainLookupStart:_perfStart,domainLookupEnd:_perfStart,connectStart:_perfStart,connectEnd:_perfStart,requestStart:_perfStart,responseStart:_perfStart,responseEnd:_perfStart,domLoading:_perfStart,domInteractive:_perfStart,domContentLoadedEventStart:_perfStart,domContentLoadedEventEnd:_perfStart,domComplete:_perfStart,loadEventStart:_perfStart,loadEventEnd:_perfStart},getEntries:function(){return []},getEntriesByType:function(){return []},getEntriesByName:function(){return []},mark:function(){},measure:function(){}};var _b64='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';g.btoa=function(s){var r='';for(var i=0;i<s.length;i+=3){var n=s.charCodeAt(i)<<16|(s.charCodeAt(i+1)||0)<<8|(s.charCodeAt(i+2)||0);for(var j=0;j<4;j++){if(i*8+j*6<=s.length*8)r+=_b64.charAt((n>>>6*(3-j))&63);else r+='='}}return r};g.atob=function(s){var b64='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';s=String(s).replace(/\\s/g,'');var r='';for(var i=0;i<s.length;i+=4){var n=0,cnt=0;for(var j=0;j<4;j++){if(i+j<s.length&&s.charAt(i+j)!=='='){n=(n<<6)|b64.indexOf(s.charAt(i+j));cnt++}else n<<=6}var bytes=cnt-1;for(var j=2;j>2-bytes;j--)r+=String.fromCharCode((n>>>(j*8))&255)}return r};g.history={pushState:function(){},replaceState:function(){},go:function(){},back:function(){},forward:function(){},length:0};g.alert=function(){};g.confirm=function(){return true};g.prompt=function(){return ''};g.open=function(){return null};g.close=function(){};g.focus=function(){};g.blur=function(){};g.print=function(){};g.getComputedStyle=function(){return new Proxy({},{get:function(){return ''}})};g.matchMedia=function(){return {matches:false,addListener:function(){},removeListener:function(){},addEventListener:function(){},removeEventListener:function(){}}};g.Image=function(){return {}};g.MutationObserver=function(){return {observe:function(){},disconnect:function(){},takeRecords:function(){return []}}};g.IntersectionObserver=function(){return {observe:function(){},disconnect:function(){}}};g.ResizeObserver=function(){return {observe:function(){},disconnect:function(){}}};g.Worker=function(){return {postMessage:function(){},terminate:function(){}}};g.Event=function(type){this.type=type};g.CustomEvent=function(type,opts){this.type=type;this.detail=opts?opts.detail:null};g.MessageChannel=function(){this.port1={postMessage:function(){},addEventListener:function(){}};this.port2={postMessage:function(){},addEventListener:function(){}}};g.addEventListener=function(){};g.removeEventListener=function(){};g.dispatchEvent=function(){return true};g.onwheelx={_Ax:'0X21'};if(typeof g.console==='undefined')g.console={log:function(){},warn:function(){},error:function(){},info:function(){},debug:function(){}};})();";
+
+
+function loadABogusSigner() {
+    if (typeof getABogus === 'function') return true;
+    var urls = [
+        'https://raw.githubusercontent.com/520pt/ikunbox/main/js/abogus_dy.js',
+        'https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/js/abogus_dy.js'
+    ];
+    for (var i = 0; i < urls.length; i++) {
+        try {
+            var code = request(urls[i], {headers:{'User-Agent':UA,'Accept':'application/javascript,*/*'}});
+            if (code && code.length > 1000) {
+                (0, eval)(ABOGUS_SHIM + '\n' + code);
+                if (typeof initABogus === 'function') initABogus();
+                if (typeof getABogus === 'function') return true;
+            }
+        } catch (e) { print('abogus load failed:' + (e && e.message ? e.message : e)); }
+    }
+    return false;
+}
+
+function abSign(path, q, body) {
+    try {
+        if (!loadABogusSigner()) return '';
+        var query = encodeQuery(q);
+        var raw = getABogus(query, body || '', path);
+        var obj = JSON.parse(raw);
+        return obj && obj.ok ? obj.value : '';
+    } catch (e) {
+        print('abogus sign failed:' + (e && e.message ? e.message : e));
+        return '';
+    }
+}
+
+function signedUrl(base, path, q, body) {
+    var sig = abSign(path, q, body || '');
+    if (sig) q.a_bogus = sig;
+    return buildUrl(base, q);
+}
+
+function encodeQuery(q) {
+    var arr = [];
+    Object.keys(q).forEach(function(k){ if (q[k] !== undefined && q[k] !== null) arr.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(q[k]))); });
+    return arr.join('&');
+}
 
 function getExtObj() {
     try {
@@ -98,7 +143,11 @@ function readCookie() {
         if (c.indexOf('127.0.0.1:9979') >= 0) urls.push(c.replace('127.0.0.1:9979', '127.0.0.1:9978'));
         if (c.indexOf('127.0.0.1:9978') >= 0) urls.push(c.replace('127.0.0.1:9978', '127.0.0.1:9979'));
         for (var i = 0; i < urls.length; i++) {
-            try { var got = normalizeCookie(request(urls[i])); if (got) return got; } catch (e) {}
+            try {
+                var got = normalizeCookie(request(urls[i], {buffer: 1, headers: {'User-Agent': UA, 'Accept': 'text/plain,*/*'}}));
+                if (got) return got;
+            } catch (e) {}
+            try { var got2 = normalizeCookie(request(urls[i])); if (got2) return got2; } catch (e2) {}
         }
         return '';
     }
@@ -193,6 +242,18 @@ function getJson(url, referer) {
     }
 }
 
+
+function postJson(url, referer, body) {
+    try {
+        var html = request(url, {method:'POST', body: body || '', headers: dyHeaders(referer || 'https://www.douyin.com/')});
+        if (!html || html.length < 2) return {};
+        return JSON.parse(html);
+    } catch (e) {
+        print('抖音POST失败: ' + e.message + ' url=' + url);
+        return {};
+    }
+}
+
 function buildUrl(base, q) {
     var arr = [];
     Object.keys(q).forEach(function(k){ if (q[k] !== undefined && q[k] !== null) arr.push(encodeURIComponent(k) + '=' + encodeURIComponent(String(q[k]))); });
@@ -264,8 +325,8 @@ function authorWorksDetail(secUserId, name) {
     q.sec_user_id = secUserId;
     q.max_cursor = '0';
     q.count = '30';
-    var url = buildUrl('https://www.douyin.com/aweme/v1/web/aweme/post/', q);
-    var json = getJson(url, 'https://www.douyin.com/user/' + secUserId);
+        var url = signedUrl('https://www.douyin.com/aweme/v1/web/aweme/post/', '/aweme/v1/web/aweme/post/', q, '');
+        var json = getJson(url, 'https://www.douyin.com/user/' + secUserId);
     var list = parseAwemeList(json);
     var play = [];
     for (var i = 0; i < list.length; i++) {
@@ -307,7 +368,7 @@ function recommendList(page) {
     var q = commonQuery();
     q.refresh_index = String(page || 1);
     q.count = '18';
-    var url = buildUrl('https://www.douyin.com/aweme/v1/web/tab/feed/', q);
+    var url = signedUrl('https://www.douyin.com/aweme/v1/web/tab/feed/', '/aweme/v1/web/tab/feed/', q, '');
     var json = getJson(url, 'https://www.douyin.com/?recommend=1');
     return parseAwemeList(json);
 }
@@ -326,15 +387,31 @@ function featuredList(cate, page) {
     var tagId = item[0];
     var path = item[1];
     var q = commonQuery();
-    q.module_id = tagId;
-    q.tag_id = tagId;
-    q.page = String(page || 1);
+    q.module_id = '3003101';
     q.count = '18';
-    var url = buildUrl('https://www.douyin.com/aweme/v2/web/module/feed/', q);
-    var json = getJson(url, 'https://www.douyin.com' + path);
+    q.filterGids = '';
+    q.presented_ids = '';
+    q.refresh_index = String(page || 1);
+    q.refer_id = '';
+    q.refer_type = '10';
+    q.pull_type = '2';
+    q.awemePcRecRawData = '{\"is_xigua_user\":0,\"danmaku_switch_status\":0,\"is_client\":false}';
+    q['Seo-Flag'] = '0';
+    q.install_time = String(Math.floor(Date.now() / 1000) - 86400);
+    q.tag_id = tagId;
+    q.use_lite_type = '0';
+    q.pre_log_id = '';
+    q.pre_item_ids = '';
+    q.pre_room_ids = '';
+    q.xigua_user = '0';
+    q.support_h265 = '1';
+    q.support_dash = '1';
+    q.active_id = '';
+    q.is_active_tab = 'false';
+    var url = signedUrl('https://www.douyin.com/aweme/v2/web/module/feed/', '/aweme/v2/web/module/feed/', q, '');
+    var json = postJson(url, 'https://www.douyin.com' + path, '');
     var list = parseAwemeList(json);
     if (list.length) return list;
-    // 兜底：无签名壳无法打开 v2 module 时，至少返回页面提示，避免空白。
     return [{vod_id:'featured_empty', vod_name:'精选分类需要有效 Cookie/签名环境', vod_pic:'', vod_remarks:'请填 Cookie 后重试'}];
 }
 

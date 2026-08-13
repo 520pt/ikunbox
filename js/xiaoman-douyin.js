@@ -34,9 +34,27 @@ var rule = {
         var page = MY_PAGE || 1;
         try {
             print('xiaoman 一级 cate=' + cate + ' page=' + page);
-            var root = (typeof globalThis !== 'undefined') ? globalThis : {};
-            var fn = (typeof douyinList !== 'undefined') ? douyinList : root.douyinList;
-            VODS = fn(cate, page, '');
+            if (String(cate || '').indexOf('custompage') === 0 || String(cate || '').indexOf('custom_page_') === 0) {
+                var id = String(cate || '').replace(/^custompage/, '').replace(/^custom_page_/, '');
+                var pages = (typeof CUSTOM_PAGES !== 'undefined') ? CUSTOM_PAGES : [];
+                var out = [];
+                for (var pi = 0; pi < pages.length; pi++) {
+                    if (String(pages[pi].id) === id) {
+                        var items = pages[pi].items || [];
+                        for (var ii = 0; ii < items.length; ii++) {
+                            var it = items[ii] || {};
+                            var sec = it.sec_user_id || '';
+                            if (!sec) continue;
+                            var name = it.name || ('博主' + (ii + 1));
+                            out.push({vod_id:'author@@' + sec + '@@' + encodeURIComponent(name), vod_name:name, vod_pic:'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico', vod_remarks:pages[pi].title || '自定义博主', vod_content:'打开后显示该博主作品。'});
+                        }
+                    }
+                }
+                VODS = out.length ? out : [{vod_id:'custom_empty', vod_name:'自定义页面为空', vod_pic:'', vod_remarks:'请检查配置'}];
+            } else {
+                var fn = (typeof douyinList !== 'undefined') ? douyinList : null;
+                VODS = fn ? fn(cate, page, '') : [{vod_id:'debug_info', vod_name:'分类加载失败', vod_pic:'', vod_remarks:String(cate), vod_content:'douyinList 不可用'}];
+            }
             print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));
         } catch (e) {
             print('xiaoman 一级 error=' + (e && e.message ? e.message : e));
@@ -456,8 +474,9 @@ function compact(n) {
     return String(n || '');
 }
 try {
-    this.douyinList = douyinList;
-    this.detailByAwemeId = detailByAwemeId;
-    this.debugVod = debugVod;
+    var __xiaomanRoot = (typeof globalThis !== 'undefined') ? globalThis : this;
+    __xiaomanRoot.douyinList = douyinList;
+    __xiaomanRoot.detailByAwemeId = detailByAwemeId;
+    __xiaomanRoot.mediaHeaders = mediaHeaders;
 } catch (e) {}
 

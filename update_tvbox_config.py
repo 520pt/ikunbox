@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin.js?v=202608132123',
+    'ext': OWN_BASE + 'js/xiaoman-douyin.js?v=202608132134',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,
@@ -157,7 +157,7 @@ def inject_custom_pages(js: str, pages: list) -> str:
     class_urls = ['login'] + ['custompage' + re.sub(r'[^A-Za-z0-9]', '', p['id']) for p in pages] + ['recommend','follow','featured','film','entertainment','acg','game','music','sport','food','travel','pet','child','live']
     js = replace_line(js, '    class_name:', "    class_name: '" + '&'.join(class_names).replace("'", "") + "',")
     js = replace_line(js, '    class_url:', "    class_url: '" + '&'.join(class_urls).replace("'", "") + "',")
-    js = js.replace("    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        VODS = douyinList(cate, page, '');\n    }),", "    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        try {\n            print('xiaoman 一级 cate=' + cate + ' page=' + page);\n            VODS = douyinList(cate, page, '');\n            print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));\n        } catch (e) {\n            print('xiaoman 一级 error=' + (e && e.message ? e.message : e));\n            VODS = [debugVod('分类加载失败', String(cate), String(e && e.message ? e.message : e))];\n        }\n    }),")
+    js = js.replace("    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        VODS = douyinList(cate, page, '');\n    }),", "    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        try {\n            print('xiaoman 一级 cate=' + cate + ' page=' + page);\n            var fn = (typeof douyinList !== 'undefined') ? douyinList : this.douyinList;\n            VODS = fn(cate, page, '');\n            print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));\n        } catch (e) {\n            print('xiaoman 一级 error=' + (e && e.message ? e.message : e));\n            VODS = [debugVod('分类加载失败', String(cate), String(e && e.message ? e.message : e))];\n        }\n    }),")
     custom_var = 'var CUSTOM_PAGES = ' + json.dumps(pages, ensure_ascii=False, separators=(',', ':')) + ';\n'
     js = re.sub(r'var CUSTOM_PAGES = .*?;\n', '', js)
     js = js.replace('};\n\nfunction getExtObj()', '};\n\n' + custom_var + '\nfunction getExtObj()')
@@ -165,6 +165,8 @@ def inject_custom_pages(js: str, pages: list) -> str:
     js = js.replace("if (cate === 'login') return [loginStatusVod()];\n    if (!hasLoginCookie()", "if (cate === 'login') return [loginStatusVod()];\n    if (isCustomPage(cate)) return customPageList(cate);\n    if (!hasLoginCookie()")
     js = js.replace("if (id === 'login_required' || id === 'featured_empty' || id === 'cookie_ok') {", "if (id === 'login_required' || id === 'featured_empty' || id === 'cookie_ok' || id === 'custom_empty') {")
     js = js.replace("if (String(id).indexOf('live$') === 0) {", "if (String(id).indexOf('author@@') === 0) {\n        var a = String(id).split('@@');\n        return authorWorksDetail(a[1] || '', decodeURIComponent(a[2] || '抖音博主'));\n    }\n    if (String(id).indexOf('live$') === 0) {")
+    export_code = "\ntry {\n    this.douyinList = douyinList;\n    this.detailByAwemeId = detailByAwemeId;\n    this.debugVod = debugVod;\n} catch (e) {}\n"
+    js = js.rstrip() + export_code + '\n'
     return js
 
 

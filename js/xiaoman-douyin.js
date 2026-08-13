@@ -34,7 +34,8 @@ var rule = {
         var page = MY_PAGE || 1;
         try {
             print('xiaoman 一级 cate=' + cate + ' page=' + page);
-            VODS = douyinList(cate, page, '');
+            var fn = (typeof douyinList !== 'undefined') ? douyinList : this.douyinList;
+            VODS = fn(cate, page, '');
             print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));
         } catch (e) {
             print('xiaoman 一级 error=' + (e && e.message ? e.message : e));
@@ -453,4 +454,9 @@ function compact(n) {
     if (n >= 10000) return (n / 10000).toFixed(1) + '万';
     return String(n || '');
 }
+try {
+    this.douyinList = douyinList;
+    this.detailByAwemeId = detailByAwemeId;
+    this.debugVod = debugVod;
+} catch (e) {}
 

@@ -3,7 +3,7 @@ import pathlib
 import shutil
 import urllib.request
 
-ROOT = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun-json-config')
+ROOT = pathlib.Path(__file__).resolve().parent
 SOURCE_JS = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun\tmp\tvbox-douyin\js\小满抖音.js')
 UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json'
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'

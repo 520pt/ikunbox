@@ -12,7 +12,7 @@ var rule = {
     timeout: 20000,
     play_parse: false,
     class_name: '登录状态&儿童&推荐&关注&精选&影视&综艺&二次元&游戏&音乐&体育&美食&旅行&萌宠&亲子&直播',
-    class_url: 'login&custom_page_children&recommend&follow&featured&film&entertainment&acg&game&music&sport&food&travel&pet&child&live',
+    class_url: 'login&custompagechildren&recommend&follow&featured&film&entertainment&acg&game&music&sport&food&travel&pet&child&live',
     headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36',
         'Referer': 'https://www.douyin.com/',
@@ -32,7 +32,14 @@ var rule = {
     一级: $js.toString(() => {
         var cate = MY_CATE || 'recommend';
         var page = MY_PAGE || 1;
-        VODS = douyinList(cate, page, '');
+        try {
+            print('xiaoman 一级 cate=' + cate + ' page=' + page);
+            VODS = douyinList(cate, page, '');
+            print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));
+        } catch (e) {
+            print('xiaoman 一级 error=' + (e && e.message ? e.message : e));
+            VODS = [debugVod('分类加载失败', String(cate), String(e && e.message ? e.message : e))];
+        }
     }),
 
     二级: $js.toString(() => {
@@ -182,11 +189,16 @@ function douyinList(cate, page, wd) {
 
 
 function isCustomPage(cate) {
-    return String(cate || '').indexOf('custom_page_') === 0;
+    var s = String(cate || '');
+    return s.indexOf('custompage') === 0 || s.indexOf('custom_page_') === 0;
+}
+
+function debugVod(title, remark, content) {
+    return {vod_id:'debug_info', vod_name:title || '调试信息', vod_pic:'', vod_remarks:remark || '', vod_content:content || ''};
 }
 
 function customPageList(cate) {
-    var id = String(cate || '').replace(/^custom_page_/, '');
+    var id = String(cate || '').replace(/^custompage/, '').replace(/^custom_page_/, '');
     var pages = CUSTOM_PAGES || [];
     for (var i = 0; i < pages.length; i++) {
         if (String(pages[i].id) === id) return customBloggerCards(pages[i]);

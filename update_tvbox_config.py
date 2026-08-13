@@ -30,11 +30,16 @@ OWN_SITE = {
 
 CUSTOM_JS_HELPERS = """
 function isCustomPage(cate) {
-    return String(cate || '').indexOf('custom_page_') === 0;
+    var s = String(cate || '');
+    return s.indexOf('custompage') === 0 || s.indexOf('custom_page_') === 0;
+}
+
+function debugVod(title, remark, content) {
+    return {vod_id:'debug_info', vod_name:title || '调试信息', vod_pic:'', vod_remarks:remark || '', vod_content:content || ''};
 }
 
 function customPageList(cate) {
-    var id = String(cate || '').replace(/^custom_page_/, '');
+    var id = String(cate || '').replace(/^custompage/, '').replace(/^custom_page_/, '');
     var pages = CUSTOM_PAGES || [];
     for (var i = 0; i < pages.length; i++) {
         if (String(pages[i].id) === id) return customBloggerCards(pages[i]);
@@ -149,9 +154,10 @@ def replace_line(text: str, prefix: str, new_line: str) -> str:
 
 def inject_custom_pages(js: str, pages: list) -> str:
     class_names = ['登录状态'] + [p['title'] for p in pages] + ['推荐','关注','精选','影视','综艺','二次元','游戏','音乐','体育','美食','旅行','萌宠','亲子','直播']
-    class_urls = ['login'] + ['custom_page_' + p['id'] for p in pages] + ['recommend','follow','featured','film','entertainment','acg','game','music','sport','food','travel','pet','child','live']
+    class_urls = ['login'] + ['custompage' + re.sub(r'[^A-Za-z0-9]', '', p['id']) for p in pages] + ['recommend','follow','featured','film','entertainment','acg','game','music','sport','food','travel','pet','child','live']
     js = replace_line(js, '    class_name:', "    class_name: '" + '&'.join(class_names).replace("'", "") + "',")
     js = replace_line(js, '    class_url:', "    class_url: '" + '&'.join(class_urls).replace("'", "") + "',")
+    js = js.replace("    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        VODS = douyinList(cate, page, '');\n    }),", "    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        try {\n            print('xiaoman 一级 cate=' + cate + ' page=' + page);\n            VODS = douyinList(cate, page, '');\n            print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));\n        } catch (e) {\n            print('xiaoman 一级 error=' + (e && e.message ? e.message : e));\n            VODS = [debugVod('分类加载失败', String(cate), String(e && e.message ? e.message : e))];\n        }\n    }),")
     custom_var = 'var CUSTOM_PAGES = ' + json.dumps(pages, ensure_ascii=False, separators=(',', ':')) + ';\n'
     js = re.sub(r'var CUSTOM_PAGES = .*?;\n', '', js)
     js = js.replace('};\n\nfunction getExtObj()', '};\n\n' + custom_var + '\nfunction getExtObj()')

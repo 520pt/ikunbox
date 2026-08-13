@@ -10,7 +10,7 @@ UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/t
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://raw.githubusercontent.com/520pt/ikunbox/main/'
 OUT_JSON = ROOT / 'jsm.json'
-OWN_JS = ROOT / 'js' / 'xiaoman-douyin.js'
+OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132150.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
 CUSTOM_CONFIG = ROOT / 'custom_blogger_config.json'
 
@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin.js?v=202608132150',
+    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132150.js',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,

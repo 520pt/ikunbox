@@ -10,7 +10,7 @@ UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/t
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://raw.githubusercontent.com/520pt/ikunbox/main/'
 OUT_JSON = ROOT / 'jsm.json'
-OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132330.js'
+OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132650.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
 CUSTOM_CONFIG = ROOT / 'custom_blogger_config.json'
 
@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132330.js',
+    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132650.js',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,
@@ -172,6 +172,42 @@ def inject_custom_pages(js: str, pages: list) -> str:
         return '';
     }"""
     js = js.replace(old_cookie, new_cookie)
+    js = js.replace("已从 TVBox/douyin_cookie.txt 检测到抖音 Cookie。", "已从 /sdcard/TVBox/douyin_cookie.txt 检测到抖音 Cookie。")
+    js = js.replace("在电脑浏览器登录 douyin.com，复制 Cookie 到 TVBox/douyin_cookie.txt 后重载配置。", "配置方法：在电脑浏览器登录 douyin.com，复制 Request Headers 里的 Cookie 值，放到电视/模拟器 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。")
+
+    old_normalize = """function normalizeCookie(raw) {
+    raw = String(raw || '').replace(/^\\uFEFF/, '').trim();
+    if (!raw) return '';
+    var lines = raw.split(/\\r?\\n/).map(function(s){ return s.trim(); }).filter(function(s){ return s && s.charAt(0) !== '#'; });
+    raw = lines.join('; ').replace(/^Cookie\\s*:\\s*/i, '').trim();
+    return raw;
+}"""
+    new_normalize = """function normalizeCookie(raw) {
+    raw = decodeMaybeBytes(raw);
+    raw = String(raw || '').replace(/^\\uFEFF/, '').trim();
+    if (!raw) return '';
+    var lines = raw.split(/\\r?\\n/).map(function(s){ return s.trim(); }).filter(function(s){ return s && s.charAt(0) !== '#'; });
+    raw = lines.join('; ').replace(/^Cookie\\s*:\\s*/i, '').trim();
+    return raw;
+}
+
+function decodeMaybeBytes(raw) {
+    if (raw == null) return '';
+    if (Object.prototype.toString.call(raw) === '[object Array]') {
+        var s = '';
+        for (var i = 0; i < raw.length; i++) s += String.fromCharCode(Number(raw[i]) || 0);
+        return s;
+    }
+    var text = String(raw);
+    if (/^\\s*\\d{1,3}(\\s*,\\s*\\d{1,3})+\\s*$/.test(text)) {
+        return text.split(/\\s*,\\s*/).map(function(n){ return String.fromCharCode(Number(n) || 0); }).join('');
+    }
+    if (/^(\\d{1,3}\\s*){10,}$/.test(text.trim())) {
+        return text.trim().split(/\\s+/).map(function(n){ return String.fromCharCode(Number(n) || 0); }).join('');
+    }
+    return text;
+}"""
+    js = js.replace(old_normalize, new_normalize)
 
     js = js.replace("VODS = douyinList('recommend', 1, '');", "VODS = rule.__douyinList ? rule.__douyinList('recommend', 1, '') : [{vod_id:'debug_info',vod_name:'抖音方法初始化失败',vod_pic:'',vod_remarks:'请重载配置',vod_content:'推荐函数不可用'}];")
     js = js.replace("var item = detailByAwemeId(id);", "var item = rule.__detailByAwemeId ? rule.__detailByAwemeId(id) : {vod_id:id,vod_name:'抖音方法初始化失败',vod_play_from:'说明',vod_play_url:'请重载配置$https://www.douyin.com/'};")

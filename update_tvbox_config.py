@@ -9,10 +9,11 @@ SOURCE_JS = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun\tmp\tvbox-douyin\js\�
 UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json'
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/'
-VERSION = '202608132425'
+VERSION = '202608140107'
 OUT_JSON = ROOT / 'jsm.json'
 OWN_JS = ROOT / 'js' / f'xiaoman-douyin-{VERSION}.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
+SPIDER_JAR = ROOT / 'jar' / f'spider-xiaoman-{VERSION}.jar'
 CUSTOM_CONFIG = ROOT / 'custom_blogger_config.json'
 ABOGUS_SOURCE = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun\app\src\main\assets\abogus_dy.js')
 ABOGUS_JS = ROOT / 'js' / 'abogus_dy.js'
@@ -161,7 +162,6 @@ def inject_custom_pages(js: str, pages: list) -> str:
     js = replace_line(js, '    class_name:', "    class_name: '" + '&'.join(class_names).replace("'", "") + "',")
     js = replace_line(js, '    class_url:', "    class_url: '" + '&'.join(class_urls).replace("'", "") + "',")
 
-    js = js.replace("cookie: 'http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt'", "cookie: 'http://127.0.0.1:9979/file/TVBox/douyin_cookie.txt'")
     old_cookie = """if (/^https?:\/\//.test(c)) {
         try { return normalizeCookie(request(c)); } catch (e) { return ''; }
     }"""
@@ -181,6 +181,11 @@ def inject_custom_pages(js: str, pages: list) -> str:
     js = js.replace(old_cookie, new_cookie)
     js = js.replace("已从 TVBox/douyin_cookie.txt 检测到抖音 Cookie。", "已从 /sdcard/TVBox/douyin_cookie.txt 检测到抖音 Cookie。")
     js = js.replace("在电脑浏览器登录 douyin.com，复制 Cookie 到 TVBox/douyin_cookie.txt 后重载配置。", "配置方法：在电脑浏览器登录 douyin.com，复制 Request Headers 里的 Cookie 值，放到电视/模拟器 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。")
+    js = js.replace("// 使用方法：把抖音网页 Cookie 填到 ext.cookie 指向的 douyin_cookie.txt，或直接把 cookie 写进配置 ext.cookie。", "// 使用方法：进入 TVBox 的“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站一样粘贴 Cookie。")
+    js = js.replace("cookie: 'http://127.0.0.1:9979/file/TVBox/douyin_cookie.txt'", "cookie: 'http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt'")
+    js = js.replace("搜索框粘贴 Cookie 或写入文件", "配置中心设置 Cookie")
+    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回本页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站配置一样粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
+    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回登录页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站配置一样粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
 
     old_normalize = """function normalizeCookie(raw) {
     raw = String(raw || '').replace(/^\\uFEFF/, '').trim();
@@ -360,16 +365,14 @@ def merge_config(upstream: dict) -> dict:
     merged = absolutize_upstream_paths(upstream)
     sites = merged.get('sites') or []
     def keep_site(s):
-        if s.get('key') == OWN_SITE['key']:
-            return False
-        name = str(s.get('name') or '')
-        api = str(s.get('api') or '')
-        key = str(s.get('key') or '')
-        # 避免 TVBox 保留旧选中源“配置中心”，导致导入后不进入小满抖音。
-        if key == '配置中心' or api == 'csp_Config' or name == '配置｜中心':
-            return False
-        return True
-    merged['sites'] = [OWN_SITE] + [s for s in sites if keep_site(s)]
+        return s.get('key') != OWN_SITE['key']
+    config_sites = [s for s in sites if s.get('key') == '配置中心' or s.get('api') == 'csp_Config' or s.get('name') == '配置｜中心']
+    other_sites = [s for s in sites if keep_site(s) and s not in config_sites]
+    merged['sites'] = [OWN_SITE] + config_sites[:1] + other_sites
+    if SPIDER_JAR.exists():
+        import hashlib
+        md5 = hashlib.md5(SPIDER_JAR.read_bytes()).hexdigest()
+        merged['spider'] = OWN_BASE + f'jar/spider-xiaoman-{VERSION}.jar;md5;' + md5
     flags = merged.get('flags') or []
     for flag in ['抖音', 'douyin']:
         if flag not in flags:
@@ -384,11 +387,14 @@ def main():
         raise ValueError('上游 JSON 不包含 sites 数组，停止生成。')
     write_support_files()
     merged = merge_config(upstream)
-    OUT_JSON.write_text(json.dumps(merged, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    text = json.dumps(merged, ensure_ascii=False, indent=2) + '\n'
+    OUT_JSON.write_text(text, encoding='utf-8')
+    (ROOT / f'jsm-{VERSION}.json').write_text(text, encoding='utf-8')
     print(f'已生成: {OUT_JSON}')
     print(f'上游站点: {len(upstream.get("sites", []))}')
     print(f'合并后站点: {len(merged.get("sites", []))}')
     print(f'小满抖音 JS: {OWN_JS}')
+    print(f'小满 spider: {merged.get("spider", "")}')
 
 
 if __name__ == '__main__':

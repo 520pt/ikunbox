@@ -62,7 +62,7 @@ App 会读取：
 现在仓库会生成一个合并后的 TVBox 配置：
 
 ```text
-https://gitee.com/txnas/lufeitv/raw/master/jsm.json
+https://raw.githubusercontent.com/520pt/lufeitv-tvbox/master/jsm.json
 ```
 
 这个 `jsm.json` 会自动拉取并合并上游：
@@ -104,3 +104,6 @@ http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt
 ### 为什么脚本要改上游相对路径
 
 上游配置里很多资源是 `./js/xxx.js`、`./lib/drpy2.min.js`。如果直接复制到我们自己的仓库，这些相对路径会指向我们仓库而失效。`update_tvbox_config.py` 会自动把上游相对路径改成上游绝对地址，再加入我们自己的抖音源。
+
+
+备用说明：Gitee raw 对合并后的 TVBox 大配置会返回 451，TVBox 合并源请使用 GitHub Raw 地址。

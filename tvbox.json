@@ -1,5 +1,5 @@
 {
-  "spider": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jar/spider.jar;md5;a932698717d44bbf1780212ff05e3d6e",
+  "spider": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/jar/spider-xiaoman-202608140107.jar;md5;ce7694aa42fd05ddd70833fa9df3accc",
   "lives": [
     {
       "name": "migu",
@@ -39,7 +39,7 @@
       "name": "小满｜抖音[Cookie/博主]",
       "type": 3,
       "api": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/lib/drpy2.min.js",
-      "ext": "https://raw.githubusercontent.com/520pt/ikunbox/main/js/xiaoman-douyin.js",
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/js/xiaoman-douyin-202608140107.js",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
@@ -53,16 +53,6 @@
       }
     },
     {
-      "key": "drpy_js_豆瓣",
-      "name": "搜索 | 豆瓣[js]",
-      "type": 3,
-      "api": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/lib/drpy2.min.js",
-      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/js/drpy.js",
-      "searchable": 1,
-      "quickSearch": 0,
-      "changeable": 0
-    },
-    {
       "key": "配置中心",
       "name": "配置｜中心",
       "type": 3,
@@ -74,6 +64,16 @@
         "type": "rect",
         "ratio": 1.597
       }
+    },
+    {
+      "key": "drpy_js_豆瓣",
+      "name": "搜索 | 豆瓣[js]",
+      "type": 3,
+      "api": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/lib/drpy2.min.js",
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/js/drpy.js",
+      "searchable": 1,
+      "quickSearch": 0,
+      "changeable": 0
     },
     {
       "key": "本地",

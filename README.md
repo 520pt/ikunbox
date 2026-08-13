@@ -62,7 +62,7 @@ App 会读取：
 现在仓库会生成一个合并后的 TVBox 配置：
 
 ```text
-https://raw.githubusercontent.com/520pt/lufeitv-tvbox/master/jsm.json
+https://raw.githubusercontent.com/520pt/ikunbox/main/jsm.json
 ```
 
 这个 `jsm.json` 会自动拉取并合并上游：
@@ -107,3 +107,20 @@ http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt
 
 
 备用说明：Gitee raw 对合并后的 TVBox 大配置会返回 451，TVBox 合并源请使用 GitHub Raw 地址。
+
+
+## 推荐导入地址
+
+直连地址：
+
+```text
+https://raw.githubusercontent.com/520pt/ikunbox/main/jsm.json
+```
+
+代理地址：
+
+```text
+https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/jsm.json
+```
+
+如果电视壳打不开 GitHub Raw，就用代理地址。

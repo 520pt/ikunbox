@@ -2,7 +2,6 @@ import json
 import pathlib
 import shutil
 import urllib.request
-from urllib.parse import urljoin
 
 ROOT = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun-json-config')
 SOURCE_JS = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun\tmp\tvbox-douyin\js\小满抖音.js')
@@ -45,7 +44,7 @@ def absolutize_upstream_paths(value):
     if isinstance(value, list):
         return [absolutize_upstream_paths(v) for v in value]
     if isinstance(value, str) and value.startswith('./'):
-        return urljoin(UPSTREAM_BASE, value[2:])
+        return UPSTREAM_BASE + value[2:]
     return value
 
 

@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin.js',
+    'ext': OWN_BASE + 'js/xiaoman-douyin.js?v=202608132123',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,

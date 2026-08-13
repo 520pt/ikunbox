@@ -230,6 +230,30 @@ function hasLoginCookie() {
     var c = readCookie();
     return /sessionid=|sessionid_ss=|sid_tt=|uid_tt=|passport_csrf_token=/.test(c);
 }
+function cookieStatus() {
+    var c = readCookie();
+    return {
+        raw: c,
+        hasSession: /sessionid=|sessionid_ss=|sid_tt=|uid_tt=|passport_csrf_token=/.test(c),
+        hasTtwid: /ttwid=/.test(c),
+        hasVerifyFp: /s_v_web_id=/.test(c),
+        hasUifid: /UIFID=/.test(c),
+        hasMsToken: /msToken=/.test(c)
+    };
+}
+function hasFullCookie() {
+    var s = cookieStatus();
+    return s.hasSession && s.hasTtwid && s.hasVerifyFp && s.hasUifid;
+}
+function cookieMissingText(st) {
+    var miss = [];
+    if (!st.hasSession) miss.push('sessionid/sessionid_ss');
+    if (!st.hasTtwid) miss.push('ttwid');
+    if (!st.hasVerifyFp) miss.push('s_v_web_id');
+    if (!st.hasUifid) miss.push('UIFID');
+    if (!st.hasMsToken) miss.push('msToken');
+    return miss.join('、');
+}
 
 
 function cookieMap() {
@@ -348,10 +372,10 @@ function buildUrl(base, q) {
 }
 
 function douyinList(cate, page, wd) {
-    if (cate === 'login') return [loginStatusVod()];
-    if (isCustomPage(cate)) return customPageList(cate);
+    if (cate === 'login') return (Number(page || 1) > 1) ? [] : [loginStatusVod()];
+    if (isCustomPage(cate)) return (Number(page || 1) > 1) ? [] : customPageList(cate);
     if (!hasLoginCookie() && cate !== 'recommend' && cate !== 'featured' && cate !== 'film') {
-        return [loginHintVod()];
+        return (Number(page || 1) > 1) ? [] : [loginHintVod()];
     }
     if (cate === 'search') return searchList(wd, page);
     if (cate === 'follow') return followList(page);
@@ -435,13 +459,16 @@ function authorWorksDetail(secUserId, name) {
 }
 
 function loginStatusVod() {
-    var ok = hasLoginCookie();
+    var st = cookieStatus();
+    var full = st.hasSession && st.hasTtwid && st.hasVerifyFp && st.hasUifid;
+    var any = !!st.raw;
+    var missing = cookieMissingText(st);
     return {
-        vod_id: ok ? 'cookie_ok' : 'login_required',
-        vod_name: ok ? '抖音 Cookie 已登录' : '先配置抖音 Cookie',
+        vod_id: full ? 'cookie_ok' : 'login_required',
+        vod_name: full ? '抖音 Cookie 已完整配置' : (any ? '抖音 Cookie 不完整' : '先配置抖音 Cookie'),
         vod_pic: 'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico',
-        vod_remarks: ok ? '可使用完整抖音功能' : '搜索框粘贴 Cookie 或写入文件',
-        vod_content: ok ? '已检测到抖音 Cookie。可使用推荐、精选、儿童博主作品等功能。' : '配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回本页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。Cookie 建议包含 sessionid/sessionid_ss、s_v_web_id、UIFID、ttwid、msToken。'
+        vod_remarks: full ? '推荐/精选/博主可用' : (any ? ('缺少：' + missing) : '搜索框粘贴 Cookie 或写入文件'),
+        vod_content: full ? '已检测到完整抖音 Cookie。可使用推荐、精选、儿童博主作品等功能。' : '配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回本页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。Cookie 建议至少包含 sessionid/sessionid_ss、s_v_web_id、UIFID、ttwid，最好也带 msToken。当前缺少：' + (missing || '无')
     };
 }
 function loginHintVod() {
@@ -564,7 +591,7 @@ function liveList(page) {
 function detailByAwemeId(id) {
     if (id === 'login_required' || id === 'featured_empty' || id === 'cookie_ok' || id === 'custom_empty' || id === 'debug_info') {
         var ok = id === 'cookie_ok';
-        return {vod_id:id, vod_name: ok ? '抖音 Cookie 已登录' : '抖音 Cookie 登录说明', vod_play_from:'说明', vod_play_url:(ok ? '已登录，可返回分类使用$' : '请先填写 Cookie$') + 'https://www.douyin.com/'};
+        return {vod_id:id, vod_name: ok ? '抖音 Cookie 已完整配置' : '抖音 Cookie 配置说明', vod_play_from:'说明', vod_play_url:(ok ? '已完整配置，可返回分类使用$' : '请先填写完整 Cookie$') + 'https://www.douyin.com/'};
     }
     if (String(id).indexOf('author@@') === 0) {
         var a = String(id).split('@@');

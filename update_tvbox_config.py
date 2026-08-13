@@ -10,7 +10,7 @@ UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/t
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://raw.githubusercontent.com/520pt/ikunbox/main/'
 OUT_JSON = ROOT / 'jsm.json'
-OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132150.js'
+OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132235.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
 CUSTOM_CONFIG = ROOT / 'custom_blogger_config.json'
 
@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132150.js',
+    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132235.js',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,
@@ -157,6 +157,24 @@ def inject_custom_pages(js: str, pages: list) -> str:
     class_urls = ['login'] + ['custompage' + re.sub(r'[^A-Za-z0-9]', '', p['id']) for p in pages] + ['recommend','follow','featured','film','entertainment','acg','game','music','sport','food','travel','pet','child','live']
     js = replace_line(js, '    class_name:', "    class_name: '" + '&'.join(class_names).replace("'", "") + "',")
     js = replace_line(js, '    class_url:', "    class_url: '" + '&'.join(class_urls).replace("'", "") + "',")
+    js = js.replace("cookie: 'http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt'", "cookie: 'http://127.0.0.1:9979/file/TVBox/douyin_cookie.txt'")
+    old_cookie = """if (/^https?:\/\//.test(c)) {
+        try { return normalizeCookie(request(c)); } catch (e) { return ''; }
+    }"""
+    new_cookie = """if (/^https?:\/\//.test(c)) {
+        var urls = [c];
+        if (c.indexOf('127.0.0.1:9979') >= 0) urls.push(c.replace('127.0.0.1:9979', '127.0.0.1:9978'));
+        if (c.indexOf('127.0.0.1:9978') >= 0) urls.push(c.replace('127.0.0.1:9978', '127.0.0.1:9979'));
+        for (var i = 0; i < urls.length; i++) {
+            try { var got = normalizeCookie(request(urls[i])); if (got) return got; } catch (e) {}
+        }
+        return '';
+    }"""
+    js = js.replace(old_cookie, new_cookie)
+    js = js.replace("VODS = douyinList('recommend', 1, '');", "VODS = rule.__douyinList ? rule.__douyinList('recommend', 1, '') : [{vod_id:'debug_info',vod_name:'抖音方法初始化失败',vod_pic:'',vod_remarks:'请重载配置',vod_content:'推荐函数不可用'}];")
+    js = js.replace("var item = detailByAwemeId(id);", "var item = rule.__detailByAwemeId ? rule.__detailByAwemeId(id) : {vod_id:id,vod_name:'抖音方法初始化失败',vod_play_from:'说明',vod_play_url:'请重载配置$https://www.douyin.com/'};")
+    js = js.replace("VODS = douyinList('search', MY_PAGE || 1, KEY || '');", "VODS = rule.__douyinList ? rule.__douyinList('search', MY_PAGE || 1, KEY || '') : [];")
+    js = js.replace("header: JSON.stringify(mediaHeaders(url))", "header: JSON.stringify(rule.__mediaHeaders ? rule.__mediaHeaders(url) : {'User-Agent':UA,'Referer':'https://www.douyin.com/'})")
     js = js.replace("    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        VODS = douyinList(cate, page, '');\n    }),", "    一级: $js.toString(() => {\n        var cate = MY_CATE || 'recommend';\n        var page = MY_PAGE || 1;\n        try {\n            print('xiaoman 一级 cate=' + cate + ' page=' + page);\n            if (String(cate || '').indexOf('custompage') === 0 || String(cate || '').indexOf('custom_page_') === 0) {\n                var id = String(cate || '').replace(/^custompage/, '').replace(/^custom_page_/, '');\n                var pages = (typeof CUSTOM_PAGES !== 'undefined') ? CUSTOM_PAGES : [];\n                var out = [];\n                for (var pi = 0; pi < pages.length; pi++) {\n                    if (String(pages[pi].id) === id) {\n                        var items = pages[pi].items || [];\n                        for (var ii = 0; ii < items.length; ii++) {\n                            var it = items[ii] || {};\n                            var sec = it.sec_user_id || '';\n                            if (!sec) continue;\n                            var name = it.name || ('博主' + (ii + 1));\n                            out.push({vod_id:'author@@' + sec + '@@' + encodeURIComponent(name), vod_name:name, vod_pic:'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico', vod_remarks:pages[pi].title || '自定义博主', vod_content:'打开后显示该博主作品。'});\n                        }\n                    }\n                }\n                VODS = out.length ? out : [{vod_id:'custom_empty', vod_name:'自定义页面为空', vod_pic:'', vod_remarks:'请检查配置'}];\n            } else {\n                var fn = (typeof douyinList !== 'undefined') ? douyinList : null;\n                VODS = fn ? fn(cate, page, '') : [{vod_id:'debug_info', vod_name:'分类加载失败', vod_pic:'', vod_remarks:String(cate), vod_content:'douyinList 不可用'}];\n            }\n            print('xiaoman 一级 count=' + (VODS && VODS.length ? VODS.length : 0));\n        } catch (e) {\n            print('xiaoman 一级 error=' + (e && e.message ? e.message : e));\n            VODS = [{vod_id:'debug_info', vod_name:'分类加载失败', vod_pic:'', vod_remarks:String(cate), vod_content:String(e && e.message ? e.message : e)}];\n        }\n    }),")
     custom_var = 'var CUSTOM_PAGES = ' + json.dumps(pages, ensure_ascii=False, separators=(',', ':')) + ';\n'
     js = re.sub(r'var CUSTOM_PAGES = .*?;\n', '', js)
@@ -165,7 +183,7 @@ def inject_custom_pages(js: str, pages: list) -> str:
     js = js.replace("if (cate === 'login') return [loginStatusVod()];\n    if (!hasLoginCookie()", "if (cate === 'login') return [loginStatusVod()];\n    if (isCustomPage(cate)) return customPageList(cate);\n    if (!hasLoginCookie()")
     js = js.replace("if (id === 'login_required' || id === 'featured_empty' || id === 'cookie_ok') {", "if (id === 'login_required' || id === 'featured_empty' || id === 'cookie_ok' || id === 'custom_empty') {")
     js = js.replace("if (String(id).indexOf('live$') === 0) {", "if (String(id).indexOf('author@@') === 0) {\n        var a = String(id).split('@@');\n        return authorWorksDetail(a[1] || '', decodeURIComponent(a[2] || '抖音博主'));\n    }\n    if (String(id).indexOf('live$') === 0) {")
-    export_code = "\ntry {\n    var __xiaomanRoot = (typeof globalThis !== 'undefined') ? globalThis : this;\n    __xiaomanRoot.douyinList = douyinList;\n    __xiaomanRoot.detailByAwemeId = detailByAwemeId;\n    __xiaomanRoot.mediaHeaders = mediaHeaders;\n} catch (e) {}\n"
+    export_code = "\ntry {\n    rule.__douyinList = douyinList;\n    rule.__detailByAwemeId = detailByAwemeId;\n    rule.__mediaHeaders = mediaHeaders;\n    rule.__readCookie = readCookie;\n} catch (e) { print('xiaoman attach failed:' + (e && e.message ? e.message : e)); }\n"
     js = js.rstrip() + export_code + '\n'
     return js
 

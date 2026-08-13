@@ -126,6 +126,8 @@ function encodeQuery(q) {
     return arr.join('&');
 }
 
+var CUSTOM_PAGES = [{"id":"children","title":"儿童","items":[{"name":"橙长故事","sec_user_id":"MS4wLjABAAAAvTx9f5c2UCXorqy0hJWSi_XJEu3FxaX1neENmX2TnFwQwVuHWsk8HuM1Jvvj5c1c","url":"https://www.douyin.com/user/MS4wLjABAAAAvTx9f5c2UCXorqy0hJWSi_XJEu3FxaX1neENmX2TnFwQwVuHWsk8HuM1Jvvj5c1c","note":""},{"name":"阿禾","sec_user_id":"MS4wLjABAAAAbFwYsV4aI13HsZTUv5ZbniP5jBIz9naISmOYvJ-If3U","url":"https://www.douyin.com/user/MS4wLjABAAAAbFwYsV4aI13HsZTUv5ZbniP5jBIz9naISmOYvJ-If3U","note":""},{"name":"果宝是个小胖子","sec_user_id":"MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc","url":"https://www.douyin.com/user/MS4wLjABAAAAa7BSQQSRKhXAfYSaCdkVq_kyir0MFzWSxQpNyiWd_CPy8rvSyfemPb04Oi32clfc","note":"原始分享链接：https://v.douyin.com/QpKiIXMRwkI/"},{"name":"萍萍的旧时光（收徒）","sec_user_id":"MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG","url":"https://www.douyin.com/user/MS4wLjABAAAAZFg31NGlc-UdgaCjlR2gNUf3KBIoUeUXj5yed-mB-dUmvZkRuwxHCiDRntC-zgWG","note":"原始分享链接：https://v.douyin.com/D8G7BphovrU/"},{"name":"小宇和然然","sec_user_id":"MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO","url":"https://www.douyin.com/user/MS4wLjABAAAAMqwsthYJMj4KugZpFoaomBfgR8xGenCBmfdLC4Tc3BRFgidvnHt0EqHdQGYpiicO","note":"原始分享链接：https://v.douyin.com/zxM-ALvQmSs/"},{"name":"@丹丹的旧时光之旅","sec_user_id":"MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg","url":"https://www.douyin.com/user/MS4wLjABAAAA0Jxg0tRzCH_1HlSB76ESJoRgWOxx01r_APOA51ITqBjPvgIPvUdcpCdx0yjXGLIg","note":"原始分享链接：https://v.douyin.com/ogJlUtBGpFw/"},{"name":"小田（农村治愈系）","sec_user_id":"MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08","url":"https://www.douyin.com/user/MS4wLjABAAAAE882mW2KjwrGteaXC9in3XqxG0-oHFWSrqFhaGFPd08","note":"原始分享链接：https://v.douyin.com/H055oBgFt0M/"},{"name":"芳芳的旧时光","sec_user_id":"MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz","url":"https://www.douyin.com/user/MS4wLjABAAAA9ygxkXJK68AmxO-QGBKYR80mL9BrfzX-zFFuOORCHYyTnyJRhpUHbLFfOER-5Izz","note":"原始分享链接：https://v.douyin.com/yYYEdH26ogM/"},{"name":"金小满（收徒）","sec_user_id":"MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE","url":"https://www.douyin.com/user/MS4wLjABAAAAWapUtHrQRNvIl-5j5_yBzb3QiQSGlFolTKD1c_JpIzKD5j-fNME0BnQmzoZeossE","note":"原始分享链接：https://v.douyin.com/crfD2f7VSY8/"},{"name":"瑾瑜的白日梦","sec_user_id":"MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI","url":"https://www.douyin.com/user/MS4wLjABAAAAArqBKelw-QeNpWinA5GxfC_W52gH3q5N7uAHdNjmGzI","note":"原始分享链接：https://v.douyin.com/OlrciiEoE2o/"}]}];
+
 function getExtObj() {
     try {
         if (typeof rule.ext === 'object') return rule.ext;
@@ -134,55 +136,99 @@ function getExtObj() {
     return {};
 }
 
+function readSavedCookie() {
+    try { if (typeof local !== 'undefined' && local && local.get) return normalizeCookie(local.get('xiaoman_douyin', 'cookie') || ''); } catch (e) {}
+    return '';
+}
+function saveCookie(c) {
+    c = normalizeCookie(c);
+    if (!c) return false;
+    try { if (typeof local !== 'undefined' && local && local.set) { local.set('xiaoman_douyin', 'cookie', c); return true; } } catch (e) {}
+    return false;
+}
+function clearSavedCookie() {
+    try { if (typeof local !== 'undefined' && local && local.delete) local.delete('xiaoman_douyin', 'cookie'); } catch (e) {}
+}
 function readCookie() {
     var ext = getExtObj();
     var c = ext.cookie || ext.douyin_cookie || '';
-    if (!c) return '';
+    var got = '';
     if (/^https?:\/\//.test(c)) {
         var urls = [c];
         if (c.indexOf('127.0.0.1:9979') >= 0) urls.push(c.replace('127.0.0.1:9979', '127.0.0.1:9978'));
         if (c.indexOf('127.0.0.1:9978') >= 0) urls.push(c.replace('127.0.0.1:9978', '127.0.0.1:9979'));
-        for (var i = 0; i < urls.length; i++) {
-            try {
-                var got = normalizeCookie(request(urls[i], {buffer: 1, headers: {'User-Agent': UA, 'Accept': 'text/plain,*/*'}}));
-                if (got) return got;
-            } catch (e) {}
-            try { var got2 = normalizeCookie(request(urls[i])); if (got2) return got2; } catch (e2) {}
-        }
-        return '';
+        for (var i = 0; i < urls.length; i++) { got = tryReadCookieUrl(urls[i]); if (got) return got; }
+    } else {
+        got = normalizeCookie(c); if (got) return got;
     }
-    return normalizeCookie(c);
+    return readSavedCookie();
 }
-
+function tryReadCookieUrl(url) {
+    var opts = [
+        {buffer: 2, headers: {'User-Agent': UA, 'Accept': 'text/plain,*/*'}},
+        {buffer: 1, headers: {'User-Agent': UA, 'Accept': 'text/plain,*/*'}},
+        {headers: {'User-Agent': UA, 'Accept': 'text/plain,*/*'}}
+    ];
+    for (var i = 0; i < opts.length; i++) {
+        try {
+            var raw = request(url, opts[i]);
+            var got = normalizeCookie(raw);
+            cookieDiag(url, opts[i].buffer || 0, raw, got);
+            if (got) return got;
+        } catch (e) { print('xiaoman cookie read failed url=' + url + ' buffer=' + (opts[i].buffer || 0) + ' err=' + (e && e.message ? e.message : e)); }
+    }
+    return '';
+}
 function normalizeCookie(raw) {
     raw = decodeMaybeBytes(raw);
     raw = String(raw || '').replace(/^\uFEFF/, '').trim();
     if (!raw) return '';
+    var b64 = tryBase64Decode(raw);
+    if (b64 && /sessionid=|sessionid_ss=|sid_tt=|uid_tt=|passport_csrf_token=|ttwid=|s_v_web_id=|UIFID=/.test(b64)) raw = b64;
+    if (/^\{/.test(raw)) {
+        try { var obj = JSON.parse(raw); if (obj.cookie) raw = obj.cookie; else if (obj.Cookie) raw = obj.Cookie; else if (obj.content) raw = obj.content; } catch (e) {}
+    }
     var lines = raw.split(/\r?\n/).map(function(s){ return s.trim(); }).filter(function(s){ return s && s.charAt(0) !== '#'; });
     raw = lines.join('; ').replace(/^Cookie\s*:\s*/i, '').trim();
+    raw = raw.replace(/^['"]|['"]$/g, '').replace(/\s*;\s*/g, '; ').trim();
+    if (!/[A-Za-z0-9_\-]+=/.test(raw)) return '';
     return raw;
 }
-
 function decodeMaybeBytes(raw) {
     if (raw == null) return '';
-    if (Object.prototype.toString.call(raw) === '[object Array]') {
-        var s = '';
-        for (var i = 0; i < raw.length; i++) s += String.fromCharCode(Number(raw[i]) || 0);
-        return s;
+    if (typeof raw === 'object') {
+        if (typeof raw.length === 'number') {
+            var s = '';
+            for (var i = 0; i < raw.length; i++) { var n = Number(raw[i]); if (n < 0) n += 256; s += String.fromCharCode(n || 0); }
+            return s;
+        }
+        try { var j = JSON.stringify(raw); if (j && j !== '{}') return decodeMaybeBytes(j); } catch (e) {}
+        try { var ts = String(raw); if (ts && ts !== '[object Object]') return ts; } catch (e2) {}
+        return '';
     }
     var text = String(raw);
-    if (/^\s*\d{1,3}(\s*,\s*\d{1,3})+\s*$/.test(text)) {
-        return text.split(/\s*,\s*/).map(function(n){ return String.fromCharCode(Number(n) || 0); }).join('');
-    }
-    if (/^(\d{1,3}\s*){10,}$/.test(text.trim())) {
-        return text.trim().split(/\s+/).map(function(n){ return String.fromCharCode(Number(n) || 0); }).join('');
-    }
+    if (/^\s*\[\s*-?\d{1,3}(\s*,\s*-?\d{1,3})+\s*\]\s*$/.test(text)) { try { return decodeMaybeBytes(JSON.parse(text)); } catch (e) {} }
+    if (/^\s*-?\d{1,3}(\s*,\s*-?\d{1,3})+\s*$/.test(text)) return text.split(/\s*,\s*/).map(function(n){ var b = Number(n) || 0; if (b < 0) b += 256; return String.fromCharCode(b); }).join('');
+    if (/^(-?\d{1,3}\s*){10,}$/.test(text.trim())) return text.trim().split(/\s+/).map(function(n){ var b = Number(n) || 0; if (b < 0) b += 256; return String.fromCharCode(b); }).join('');
     return text;
 }
-
+function tryBase64Decode(text) {
+    text = String(text || '').trim();
+    if (!/^[A-Za-z0-9+/=\r\n]+$/.test(text) || text.length < 12 || text.indexOf('=') < 0) return '';
+    try { return atob(text.replace(/\s+/g, '')); } catch (e) {}
+    try { return base64Decode(text); } catch (e2) {}
+    return '';
+}
+function cookieDiag(url, buffer, raw, got) {
+    try {
+        var rawType = Object.prototype.toString.call(raw);
+        var rawLen = raw && typeof raw.length === 'number' ? raw.length : String(raw || '').length;
+        print('xiaoman cookie url=' + url + ' buffer=' + buffer + ' rawType=' + rawType + ' rawLen=' + rawLen + ' gotLen=' + (got ? got.length : 0) + ' hasSession=' + (/sessionid=|sessionid_ss=|sid_tt=/.test(got)) + ' hasFp=' + (/s_v_web_id=|UIFID=|ttwid=/.test(got)));
+    } catch (e) {}
+}
 function hasLoginCookie() {
     var c = readCookie();
-    return /sessionid=|sid_tt=|uid_tt=|passport_csrf_token=/.test(c);
+    return /sessionid=|sessionid_ss=|sid_tt=|uid_tt=|passport_csrf_token=/.test(c);
 }
 
 function dyHeaders(referer) {
@@ -351,7 +397,7 @@ function loginStatusVod() {
         vod_name: ok ? '抖音 Cookie 已登录' : '需要先登录抖音 Cookie',
         vod_pic: 'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico',
         vod_remarks: ok ? '可使用完整抖音功能' : '未检测到有效 Cookie',
-        vod_content: ok ? '已从 /sdcard/TVBox/douyin_cookie.txt 检测到抖音 Cookie。' : '配置方法：在电脑浏览器登录 douyin.com，复制 Request Headers 里的 Cookie 值，放到电视/模拟器 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。'
+        vod_content: ok ? '已检测到抖音 Cookie。可使用推荐、精选、儿童博主作品等功能。' : '配置方法：方法一，在本源搜索框直接粘贴完整抖音 Cookie，保存后返回登录状态查看；方法二，把 Cookie 放到 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。'
     };
 }
 function loginHintVod() {
@@ -360,7 +406,7 @@ function loginHintVod() {
         vod_name: '需要先登录抖音 Cookie',
         vod_pic: 'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico',
         vod_remarks: '把 Cookie 填到 douyin_cookie.txt',
-        vod_content: '配置方法：在电脑浏览器登录 douyin.com，复制 Request Headers 里的 Cookie 值，放到电视/模拟器 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。'
+        vod_content: '配置方法：方法一，在本源搜索框直接粘贴完整抖音 Cookie，保存后返回登录状态查看；方法二，把 Cookie 放到 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。'
     };
 }
 
@@ -416,16 +462,28 @@ function featuredList(cate, page) {
 }
 
 function searchList(wd, page) {
-    if (!wd) return [];
+    var kw = String(wd || '').trim();
+    if (!kw) return [];
+    if (/^(清除|删除).*cookie$/i.test(kw) || /^clear\s*cookie$/i.test(kw)) {
+        clearSavedCookie();
+        return [{vod_id:'login_required', vod_name:'抖音 Cookie 已清除', vod_pic:'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico', vod_remarks:'请重新配置 Cookie', vod_content:'已清除通过搜索保存的 Cookie；如果 /sdcard/TVBox/douyin_cookie.txt 里还有 Cookie，请手动删除或覆盖。'}];
+    }
+    if (/^(Cookie\s*[:=])|sessionid=|sessionid_ss=|sid_tt=|passport_csrf_token=|ttwid=|s_v_web_id=|UIFID=/i.test(kw)) {
+        var ck = normalizeCookie(kw);
+        var ok = saveCookie(ck);
+        return [{vod_id: ok ? 'cookie_ok' : 'login_required', vod_name: ok ? '抖音 Cookie 已保存' : '抖音 Cookie 保存失败', vod_pic:'https://lf1-cdn-tos.bytegoofy.com/goofy/ies/douyin_web/public/favicon.ico', vod_remarks: ok ? '返回登录状态查看' : '当前 TVBox 不支持本地保存', vod_content: ok ? 'Cookie 已保存到 TVBox 本地存储。重新进入登录状态，显示“已登录”后即可使用推荐、精选、儿童博主作品。' : '也可以把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt 后重载配置。'}];
+    }
     var q = commonQuery();
-    q.keyword = wd;
+    q.keyword = kw;
     q.search_channel = 'aweme_video_web';
     q.offset = String(((page || 1) - 1) * 18);
     q.count = '18';
-    var url = buildUrl('https://www.douyin.com/aweme/v1/web/search/item/', q);
-    var json = getJson(url, 'https://www.douyin.com/search/' + encodeURIComponent(wd));
+    var url = signedUrl('https://www.douyin.com/aweme/v1/web/search/item/', '/aweme/v1/web/search/item/', q, '');
+    var json = getJson(url, 'https://www.douyin.com/search/' + encodeURIComponent(kw));
     return parseAwemeList(json);
 }
+
+
 
 function liveList(page) {
     var q = {

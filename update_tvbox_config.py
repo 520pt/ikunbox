@@ -10,7 +10,7 @@ UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/t
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://raw.githubusercontent.com/520pt/ikunbox/main/'
 OUT_JSON = ROOT / 'jsm.json'
-OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132305.js'
+OWN_JS = ROOT / 'js' / 'xiaoman-douyin-202608132330.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
 CUSTOM_CONFIG = ROOT / 'custom_blogger_config.json'
 
@@ -19,7 +19,7 @@ OWN_SITE = {
     'name': '小满｜抖音[Cookie/博主]',
     'type': 3,
     'api': UPSTREAM_BASE + 'lib/drpy2.min.js',
-    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132305.js',
+    'ext': OWN_BASE + 'js/xiaoman-douyin-202608132330.js',
     'searchable': 1,
     'quickSearch': 1,
     'filterable': 0,
@@ -226,7 +226,17 @@ def write_support_files():
 def merge_config(upstream: dict) -> dict:
     merged = absolutize_upstream_paths(upstream)
     sites = merged.get('sites') or []
-    merged['sites'] = [OWN_SITE] + [s for s in sites if s.get('key') != OWN_SITE['key']]
+    def keep_site(s):
+        if s.get('key') == OWN_SITE['key']:
+            return False
+        name = str(s.get('name') or '')
+        api = str(s.get('api') or '')
+        key = str(s.get('key') or '')
+        # 避免 TVBox 保留旧选中源“配置中心”，导致导入后不进入小满抖音。
+        if key == '配置中心' or api == 'csp_Config' or name == '配置｜中心':
+            return False
+        return True
+    merged['sites'] = [OWN_SITE] + [s for s in sites if keep_site(s)]
     flags = merged.get('flags') or []
     for flag in ['抖音', 'douyin']:
         if flag not in flags:

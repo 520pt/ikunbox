@@ -55,3 +55,52 @@ App 会读取：
 
 - `https://gitee.com/txnas/lufeitv/raw/master/manifest.json`
 - `https://gitee.com/txnas/lufeitv/raw/master/custom_blogger_config.json`
+
+
+## TVBox 合并源：上游 jsm + 小满抖音
+
+现在仓库会生成一个合并后的 TVBox 配置：
+
+```text
+https://gitee.com/txnas/lufeitv/raw/master/jsm.json
+```
+
+这个 `jsm.json` 会自动拉取并合并上游：
+
+```text
+https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json
+```
+
+同时在 `sites` 第一项加入我们自己的：
+
+```text
+小满｜抖音[Cookie]
+```
+
+### 手动更新合并源
+
+每次想同步上游最新配置，运行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\update-tvbox-json.ps1
+```
+
+然后推送：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\push-json.ps1 "update tvbox merged jsm"
+```
+
+### 抖音 Cookie 登录
+
+抖音源默认读取壳软件本地 Cookie 文件：
+
+```text
+http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt
+```
+
+把电脑浏览器登录 `https://www.douyin.com/` 后复制到的 Cookie 粘贴进壳软件本地 `TVBox/douyin_cookie.txt`，不要带 `Cookie:` 前缀，也不要上传真实 Cookie。
+
+### 为什么脚本要改上游相对路径
+
+上游配置里很多资源是 `./js/xxx.js`、`./lib/drpy2.min.js`。如果直接复制到我们自己的仓库，这些相对路径会指向我们仓库而失效。`update_tvbox_config.py` 会自动把上游相对路径改成上游绝对地址，再加入我们自己的抖音源。

@@ -1,0 +1,4 @@
+# 把抖音 Cookie 粘贴到下一行，只保留一行 Cookie 值，不要写 Cookie: 前缀。
+# 示例格式：sessionid=xxx; sid_tt=xxx; passport_csrf_token=xxx; ...
+# 不要把真实 Cookie 上传、分享或打包到公开源里。
+

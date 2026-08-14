@@ -9,7 +9,7 @@ SOURCE_JS = pathlib.Path(r'F:\newwork\myDV-artifacts\ikun\tmp\tvbox-douyin\js\�
 UPSTREAM_URL = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jsm.json'
 UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/'
 OWN_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/'
-VERSION = '202608140330'
+VERSION = '202608140430'
 OUT_JSON = ROOT / 'jsm.json'
 OWN_JS = ROOT / 'js' / f'xiaoman-douyin-{VERSION}.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
@@ -184,8 +184,8 @@ def inject_custom_pages(js: str, pages: list) -> str:
     js = js.replace("// 使用方法：把抖音网页 Cookie 填到 ext.cookie 指向的 douyin_cookie.txt，或直接把 cookie 写进配置 ext.cookie。", "// 使用方法：进入 TVBox 的“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站一样粘贴 Cookie。")
     js = js.replace("cookie: 'http://127.0.0.1:9979/file/TVBox/douyin_cookie.txt'", "cookie: 'http://127.0.0.1:9978/file/TVBox/douyin_cookie.txt'")
     js = js.replace("搜索框粘贴 Cookie 或写入文件", "配置中心设置 Cookie")
-    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回本页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站配置一样粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
-    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回登录页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，像 B站配置一样粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
+    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回本页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，扫码页可用抖音APP扫码确认；如扫码后未自动写入，请用手动/远程输入粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
+    js = js.replace("配置方法一：进入本源后打开 TVBox 搜索，直接粘贴完整抖音 Cookie 搜索，看到“抖音 Cookie 已保存”后返回登录页。配置方法二：把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重启 TVBox 或重载配置。", "配置方法：进入“配置｜中心” → “抖音配置” → “设置抖音Cookie”，扫码页可用抖音APP扫码确认；如扫码后未自动写入，请用手动/远程输入粘贴完整 Cookie；也可把 Cookie 写入 /sdcard/TVBox/douyin_cookie.txt，只保留一行，不带 Cookie: 前缀，然后重载配置。")
 
     old_normalize = """function normalizeCookie(raw) {
     raw = String(raw || '').replace(/^\\uFEFF/, '').trim();

@@ -1,5 +1,5 @@
 {
-  "spider": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/jar/spider-xiaoman-202608140107.jar;md5;ce7694aa42fd05ddd70833fa9df3accc",
+  "spider": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/jar/spider-xiaoman-202608140330.jar;md5;1af98d38e4c3ccbd6089cd609062a37b",
   "lives": [
     {
       "name": "migu",
@@ -39,7 +39,7 @@
       "name": "小满｜抖音[Cookie/博主]",
       "type": 3,
       "api": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/lib/drpy2.min.js",
-      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/js/xiaoman-douyin-202608140107.js",
+      "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/js/xiaoman-douyin-202608140330.js",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,

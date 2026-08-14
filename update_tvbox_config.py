@@ -11,6 +11,7 @@ UPSTREAM_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/
 OWN_BASE = 'https://v6.gh-proxy.org/https://raw.githubusercontent.com/520pt/ikunbox/main/'
 VERSION = '202608140430'
 OUT_JSON = ROOT / 'jsm.json'
+TVBOX_JSON = ROOT / 'tvbox.json'
 OWN_JS = ROOT / 'js' / f'xiaoman-douyin-{VERSION}.js'
 COOKIE_TEMPLATE = ROOT / 'TVBox' / 'douyin_cookie.txt'
 SPIDER_JAR = ROOT / 'jar' / f'spider-xiaoman-{VERSION}.jar'
@@ -389,6 +390,7 @@ def main():
     merged = merge_config(upstream)
     text = json.dumps(merged, ensure_ascii=False, indent=2) + '\n'
     OUT_JSON.write_text(text, encoding='utf-8')
+    TVBOX_JSON.write_text(text, encoding='utf-8')
     (ROOT / f'jsm-{VERSION}.json').write_text(text, encoding='utf-8')
     print(f'已生成: {OUT_JSON}')
     print(f'上游站点: {len(upstream.get("sites", []))}')

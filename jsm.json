@@ -2162,7 +2162,7 @@
       "searchable": 0,
       "changeable": 0,
       "ext": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/json/market.json",
-      "jar": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jar/pg.jar"
+      "jar": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/jar/pg_upgraded.jar"
     },
     {
       "key": "bb",

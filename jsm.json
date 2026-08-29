@@ -141,6 +141,16 @@
       "changeable": 1
     },
     {
+      "key": "OleLive",
+      "name": "欧乐影院 • 外",
+      "type": 3,
+      "api": "https://v6.gh-proxy.org/https://raw.githubusercontent.com/qist/tvbox/master/py/OleLive.py",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1,
+      "changeable": 1
+    },
+    {
       "key": "TVB云播",
       "name": "TVB云播",
       "type": 3,
